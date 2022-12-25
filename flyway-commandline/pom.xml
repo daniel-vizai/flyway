@@ -35,7 +35,7 @@
         <flyway-sqlserver.version>${project.version}</flyway-sqlserver.version>
         <flyway-mysql.version>${project.version}</flyway-mysql.version>
         <flyway-firebird.version>${project.version}</flyway-firebird.version>
-        <jre.version>11.0.2+9</jre.version>
+        <jre.version>11.0.2-9</jre.version>
     </properties>
     <dependencies>
         <dependency>
