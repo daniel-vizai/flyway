@@ -329,6 +329,15 @@
             <dependency>
                 <groupId>net.adoptium</groupId>
                 <artifactId>jre</artifactId>
+                <classifier>linux-arm64</classifier>
+                <version>${jre.version}</version>
+                <type>tar.gz</type>
+                <scope>system</scope>
+                <systemPath>${basedir}/src/main/assembly/OpenJDK11U-jre_aarch64_linux_hotspot_${jre.version}_8.tar.gz</systemPath>
+            </dependency>
+            <dependency>
+                <groupId>net.adoptium</groupId>
+                <artifactId>jre</artifactId>
                 <classifier>macos-x64</classifier>
                 <version>${jre.version}</version>
                 <type>tar.gz</type>
@@ -509,6 +518,7 @@
                                     <descriptors>
                                         <descriptor>src/main/assembly/windows.xml</descriptor>
                                         <descriptor>src/main/assembly/linux.xml</descriptor>
+                                        <descriptor>src/main/assembly/linux-arm64.xml</descriptor>
                                         <descriptor>src/main/assembly/macos.xml</descriptor>
                                         <descriptor>src/main/assembly/macos-arm64.xml</descriptor>
                                     </descriptors>
@@ -606,6 +616,70 @@
                                 <configuration>
                                     <descriptors>
                                         <descriptor>src/main/assembly/windows.xml</descriptor>
+                                    </descriptors>
+                                </configuration>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <encoding>UTF-8</encoding>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>build-assemblies-linux-arm64</id>
+            <activation>
+                <property>
+                    <name>github.os</name>
+                    <value>ubuntu-latest</value>
+                </property>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>net.adoptium</groupId>
+                    <artifactId>jre</artifactId>
+                    <classifier>linux-arm64</classifier>
+                    <type>tar.gz</type>
+                    <scope>system</scope>
+                </dependency>
+                <dependency>
+                    <groupId>com.oracle.database.jdbc</groupId>
+                    <artifactId>ojdbc8</artifactId>
+                </dependency>
+            </dependencies>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-dependency-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>unpack-jres</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>unpack-dependencies</goal>
+                                </goals>
+                                <configuration>
+                                    <ignorePermissions>true</ignorePermissions>
+                                    <includeArtifactIds>jre</includeArtifactIds>
+                                    <stripVersion>true</stripVersion>
+                                    <useSubDirectoryPerArtifact>true</useSubDirectoryPerArtifact>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <artifactId>maven-assembly-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>jre-assemblies</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>single</goal>
+                                </goals>
+                                <configuration>
+                                    <descriptors>
+                                        <descriptor>src/main/assembly/linux-arm64.xml</descriptor>
                                     </descriptors>
                                 </configuration>
                             </execution>
