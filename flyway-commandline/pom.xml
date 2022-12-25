@@ -447,6 +447,13 @@
                 <dependency>
                     <groupId>net.adoptium</groupId>
                     <artifactId>jre</artifactId>
+                    <classifier>linux-arm64</classifier>
+                    <type>tar.gz</type>
+                    <scope>system</scope>
+                </dependency>
+                <dependency>
+                    <groupId>net.adoptium</groupId>
+                    <artifactId>jre</artifactId>
                     <classifier>macos-x64</classifier>
                     <type>tar.gz</type>
                     <scope>system</scope>
@@ -744,6 +751,26 @@
                                 <configuration>
                                     <descriptors>
                                         <descriptor>src/main/assembly/linux.xml</descriptor>
+                                    </descriptors>
+                                </configuration>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <encoding>UTF-8</encoding>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <artifactId>maven-assembly-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>jre-assemblies</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>single</goal>
+                                </goals>
+                                <configuration>
+                                    <descriptors>
+                                        <descriptor>src/main/assembly/linux-arm64.xml</descriptor>
                                     </descriptors>
                                 </configuration>
                             </execution>
