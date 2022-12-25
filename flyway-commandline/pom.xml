@@ -695,26 +695,6 @@
                             <encoding>UTF-8</encoding>
                         </configuration>
                     </plugin>
-                    <plugin>
-                        <artifactId>maven-assembly-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>jre-assemblies</id>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>single</goal>
-                                </goals>
-                                <configuration>
-                                    <descriptors>
-                                        <descriptor>src/main/assembly/linux.xml</descriptor>
-                                    </descriptors>
-                                </configuration>
-                            </execution>
-                        </executions>
-                        <configuration>
-                            <encoding>UTF-8</encoding>
-                        </configuration>
-                    </plugin>
                 </plugins>
             </build>
         </profile>
